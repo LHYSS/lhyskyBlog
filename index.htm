@@ -1,0 +1,473 @@
+<!doctype html>
+<html style="height:100%">
+<head>
+<meta charset="utf-8">
+<title>七姊蔷薇的博客主页</title>
+<style type="text/css">
+
+* { padding: 0; margin: 0; }
+
+ul{list-style:none;}
+
+a { text-decoration: none; color: #0000ff; }
+
+/*header{position:fixed;width:100%; top:0;}*/
+
+.logo { background: #000031 url(img/banner.png) no-repeat; width: 100%; height: 100px; }
+
+.topnav, .mainbody, .footer { width: 80%; margin: 20px auto; }
+
+.topnav { border-bottom: 1px solid #aaa; }
+
+#active { border-bottom: 1px solid #fff; background: linear-gradient(to top, #fff 60%, #ccc);}
+
+.topnav a { display: inline-block; padding: 4px 8px; background: linear-gradient(to bottom, #fff 60%, #ccc); border-radius: 5px 5px 0 0; margin-right: 14px; font-size: 20px; border: 1px solid #aaa; color: black; margin-bottom: -1px; }
+
+.mainbody { position:relative;background: url(img/bg-0141.gif) repeat-x; background-size: 10px 10px; padding-top: 10px;}
+
+.elite_article { position: absolute; left: 0; top: -8px; width: 70px; font-size: 16px; font-weight: bold; font-family: 微软雅黑, Arial, Helvetica, sans-serif; background: #fff; }
+
+.elite_word { color: #fe5187; }
+
+.left { width: 70%; float: left; overflow: hidden; margin-bottom: 30px;padding-bottom:50px;}
+#homePage,#webRoude,#life,#flowing{position:relative;display:none;}
+
+
+.oneblog { padding: 30px 0; border-bottom: 1px solid #CCC; }
+
+.blogTitle { font-size: 18px; font-weight: bold; margin-bottom: 14px; }
+
+.blogImg { width: 20%; height: 140px; float: left; margin-right: 3%; }
+
+.blogDigest { width: 76%; height: 140px; padding-top: 10px; font-size: 14px; line-height: 1.5; text-align: justify; overflow: hidden; text-indent: 2em; }
+
+.list_time span { font-size: 14px; }
+
+.pageMore { position: absolute; bottom: -47px; right: 3px; text-align: center; background: #fff; font-size: 18px; font-family:微软雅黑, Arial, Helvetica, sans-serif; background:#fe5187; color:#eee;padding:4px; border:none; box-shadow:1px 3px 2px 1px #666;}
+
+
+.cutLine { background: url(img/bg-0141.gif) repeat-y; width: 1%; float: left; margin-left: 1%; background-position:center; }
+
+.right {width: 26%; float: right; }
+
+.footer { margin-top: 30px; height: 30px; line-height: 30px; text-align: center; clear: both; background: #000031; color: #ccc; font-size: 14px; }
+
+#webRoude {}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var left=document.getElementById("left");
+	var mainBody=document.getElementById("mainbody");
+	
+	var topNav=document.getElementsByClassName("topnav")[0];
+	var aLink=topNav.getElementsByTagName("a");
+	
+	var webRoude=document.getElementById("webRoude");
+	var homePage=document.getElementById("homePage");
+	var life=document.getElementById("life");
+	var flowing=document.getElementById("flowing");
+	
+	var homeLi=homePage.getElementsByTagName("li");	
+	var webRoudeLi=webRoude.getElementsByTagName("li");	
+	var lifeLi=life.getElementsByTagName("li");	
+	var flowingLi=flowing.getElementsByTagName("li");
+
+	
+	homePage.style.display="block";
+
+	
+	/* 首页博客显示函数	 */
+	function defaultBlogsDisplay(obj){
+	
+		for (var i=0; i<obj.length; i++){
+			if(i<=5){
+				obj[i].style.display="block";	
+			}else{
+				obj[i].style.display="none";
+			}	
+			
+		}	
+	}
+
+
+	//homePage文章默认显示条数
+	defaultBlogsDisplay(homeLi);
+	
+	//webRoude文章默认显示条数
+	defaultBlogsDisplay(webRoudeLi);
+	
+	//life文章默认显示条数
+	defaultBlogsDisplay(lifeLi);
+	
+	//flowing文章默认显示条数
+	defaultBlogsDisplay(flowingLi);
+
+	
+	
+	
+
+/*webRoude页点击“更多文章”事件*/	
+
+	var pageMore=document.getElementsByClassName("pageMore")
+
+	for(var i=0; i<pageMore.length; i++){
+	  pageMore[i].onmousedown=function(){
+		  this.style.boxShadow="none";	
+	  };
+	  pageMore[i].onmouseup=function(){
+		  this.style.boxShadow="1px 3px 2px 1px #666";	
+	  };
+	  pageMore[i].onclick=function(){
+		  var nowLi=this.parentNode.getElementsByTagName("Li");
+		  
+		  this.style.border="none";
+		  var pageNumber=0;
+		  for (var i=0; i<nowLi.length; i++){
+			  if(nowLi[i].style.display=="block"){
+				  pageNumber++;
+				  };	
+		  };
+		  for(var i=0; i<nowLi.length; i++){
+			  if(i<=pageNumber+5){
+				  nowLi[i].style.display="block";	
+			  }else{
+				  nowLi[i].style.display="none";
+			  };	
+		  };
+		  cutLineReload();
+		  
+	  };
+	}
+	
+
+/*隔离线高度设置，需要在文章显示条数确定后设置*/
+
+	function cutLineReload(){
+		var cutLine=document.getElementsByClassName("cutLine")[0];
+		cutLine.style.height=left.offsetHeight+"px";	
+	}
+	cutLineReload();
+		
+/*主导航切换*/
+	for(var i=0; i<aLink.length; i++){
+		aLink[i].onclick=function(){
+			for(var j=0; j<aLink.length; j++){
+				if(aLink[j].id){
+			  		aLink[j].removeAttribute("id");
+			  	}
+		  	};
+			
+			this.id="active";
+			if(this.className=="homePage"){
+				homePage.style.display="block";
+				webRoude.style.display="none";
+				life.style.display="none";
+				flowing.style.display="none";
+				}
+			if(this.className=="webRoude"){
+				homePage.style.display="none";
+				webRoude.style.display="block";
+				life.style.display="none";
+				flowing.style.display="none";
+				
+				}
+			if(this.className=="life"){
+				homePage.style.display="none";
+				webRoude.style.display="none";
+				life.style.display="block";
+				flowing.style.display="none";
+				}
+			if(this.className=="flowing"){
+				homePage.style.display="none";
+				webRoude.style.display="none";
+				life.style.display="none";
+				flowing.style.display="block";
+				}
+			cutLineReload();
+			
+		 
+		}
+	}
+	
+
+}	
+</script>
+<base target="_self">
+</head>
+
+<body style="height:100%">
+<!--<audio src="Inspire.mp3" autoplay="autoplay"></audio>
+-->
+<header>
+  <div class="logo"></div>
+  <nav class="topnav" id="topnav"> <a href="#" id="active" class="homePage"><span >网站主页</span></a> <a href="#" class="webRoude"><span>前端之路</span></a> <a href="#" class="life"><span>生活感悟</span></a> <a href="#" class="flowing"><span>似水年华</span></a> </nav>
+</header>
+<div class="mainbody" id="mainBody">
+
+  	<P class="elite_article">文章<span class="elite_word">推荐</span></P>
+  	<div class="left" id="left">
+		<ul id="homePage" >
+   	 		<li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+     <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+    
+    <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+    <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+    <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+    <li class="oneblog">
+      <h2 class="blogTitle">遇见未知的自己</h2>
+      <img class="blogImg" src="img/26.jpg" />
+      <p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      <p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    </li>
+ 
+   			<nav class="pageMore" >更多文章 >></nav>
+   
+   		</ul>
+
+
+
+  <!--前端之路-->
+  		<ul id="webRoude">
+   			<li class="oneblog">
+      			<h2 class="blogTitle"> 子元素的垂直margin值对父元素的影响</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 首先得说一下 margin折叠 
+所谓margin折叠，即相邻的不同margin值有可能会被折叠成同一个margin值。看清楚哦，只是有可能会。至于哪些是相邻元素？哪些又会存在折叠？ 
+这个链接https://blog.coding.net/blog/css-margin里阐述很全面。<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>原创</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">前端之路</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+			    <img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+    		
+            <li class="oneblog">
+      			<h2 class="blogTitle"> 子元素的垂直margin值对父元素的影响</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 首先得说一下 margin折叠 
+所谓margin折叠，即相邻的不同margin值有可能会被折叠成同一个margin值。看清楚哦，只是有可能会。至于哪些是相邻元素？哪些又会存在折叠？ 
+这个链接https://blog.coding.net/blog/css-margin里阐述很全面。<a class="more" href="article_meetUnkown.html" target="_blank">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>原创</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">前端之路</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+			    <img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+    		<li class="oneblog">
+      			<h2 class="blogTitle">遇见未知的自己</h2>
+      			<img class="blogImg" src="img/26.jpg" />
+      			<p class="blogDigest"> 冬夜，下着小雨。一辆马自达跑车在阳明山的山坡路上疾驰着，加速、急转、超车，熟练的车技不输赛车选手。雨天这样的开车方式一般只有两种情况：赶路，或者逃命。若菱根本不知道自己往哪里去。但若是后一种情形，她却又似乎并不在乎命。“万一对面来车怎么办？”若菱想：“那正好！死个痛快！”念头一出，自己都吓一跳！为什么最近老有想死的念头？<a class="more" href="#">more>></a> </p>
+      			<p class="list_time"><span>2017-06-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>转载</span>&nbsp;&nbsp;<span>个人博客：[<a href="#">似水年华</a>]</span></p>
+    		</li>
+   			<nav class="pageMore"  >更多文章 >></nav>
+           
+   		</ul>
+    
+    
+    
+  <!--生活感悟-->
+  		<ul id="life">
+ 			 <nav class="pageMore" >更多文章 >></nav>
+ 		</ul>
+  
+  <!--似水年华-->
+  		<ul id="flowing">
+  			<nav class="pageMore" >更多文章 >></nav>
+  		</ul>
+  	</div>
+
+  
+    
+  	<div class="cutLine">
+    </div>
+ 	<div class="bloglist right">
+  		<h2>全部博客列表</h2>
+    	<h3 href="#" class="catagory_webRoude">子元素的垂直margin值对父元素的影响<span class="publish_time">2017-06-02</span></h3>
+    	<h3 href="#" class="catagory_life">遇见未知的自己<span class="publish_time">2017-06-01</span></h3>
+  	</div>
+</div>
+
+
+<footer class="footer">
+  <address>
+  Design by LHY&nbsp;&nbsp;小山村65号
+  </address>
+</footer>
+
+<!-- 前端之路博客列表-->
+
+</body>
+</html>
